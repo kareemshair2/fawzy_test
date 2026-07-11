@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فريق الميديا — انضم لينا | صناع الحياة المنوفية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0f766e;
+  --primary-dim: rgba(15,118,110,0.12);
+  --primary-glow: rgba(15,118,110,0.08);
+  --primary-hover: #0d5e5e;
+  --secondary: #b8944a;
+  --secondary-dim: rgba(184,148,74,0.12);
+  --accent: #10b981;
+  --alert: #ef4444;
+  --bg: #070b18;
+  --bg2: #0e1628;
+  --bg3: #141e36;
+  --bg4: #1a2645;
+  --card: #141e36;
+  --card-hover: #1a2645;
+  --border: rgba(184,148,74,0.1);
+  --border-focus: #0f766e;
+  --text: #e8e2d6;
+  --text2: #9a8e7a;
+  --text3: #6a5f50;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-full: 999px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.25);
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239,68,68,0.1);
+  --warn: #f59e0b;
+  --success: #10b981;
+  --success-bg: rgba(16,185,129,0.1);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::selection { background: var(--primary); color: #fff; }
+body {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+.header {
+  background: linear-gradient(135deg, #0d1321 0%, #1a212e 50%, #0d1321 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 20px 14px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: -100px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 250px; height: 250px;
+  background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-dim);
+  border: 1px solid rgba(15,118,110,0.25);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+.header h1 {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.header .hl { background: linear-gradient(135deg, var(--primary), #1a9e9e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.header p {
+  font-size: 0.78rem;
+  color: var(--text2);
+  font-weight: 400;
+}
+.header-divider {
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: var(--radius-full);
+  margin: 14px auto 0;
+}
+.premium-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  height: 32px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, var(--primary), #0d5e5e);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.premium-bar .bar-icon { font-size: 0.75rem; opacity: 0.9; }
+body { padding-top: 32px; }
+.geo-bg {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; opacity: 0.2;
+}
+.geo-bg::before {
+  content: ''; position: absolute; inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 0l14.6 44.7L120 60l-45.4 15.3L60 120 45.4 75.3 0 60l45.4-15.3z' fill='none' stroke='rgba(184,148,74,0.04)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  animation: geoDrift 80s linear infinite;
+  opacity: 0.4;
+}
+@keyframes geoDrift { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+.page { position: relative; z-index: 2; }
+
+/* Progress */
+.progress-wrap {
+  position: sticky; top: 32px; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+}
+.progress-steps {
+  max-width: 720px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.progress-step {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 0.7rem; font-weight: 600;
+  color: var(--text3);
+  padding: 4px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.progress-step .num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700;
+  color: var(--text3);
+  transition: all var(--transition);
+}
+.progress-step.active { background: var(--primary-dim); color: var(--primary); }
+.progress-step.active .num { background: var(--primary); color: #fff; }
+.progress-step.done { color: var(--primary); }
+.progress-step.done .num { background: var(--primary); color: #fff; }
+.progress-line {
+  flex: 0 0 20px; height: 2px;
+  background: var(--border); border-radius: 2px;
+  transition: background var(--transition);
+}
+.progress-line.fill { background: var(--primary); }
+
+/* Main */
+.main { max-width: 760px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* Sections */
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+  display: none;
+  animation: fadeUp 0.35s ease;
+}
+.section.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.section:hover { border-color: rgba(15,118,110,0.3); }
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 18px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem; font-weight: 700; color: #fff;
+}
+.section-header .icon { font-size: 1.1rem; }
+.section-header .badge {
+  margin-right: auto;
+  font-size: 0.7rem; font-weight: 600;
+  color: var(--text3);
+  background: var(--bg4);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+.section-body { padding: 18px; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.field-row:last-child { margin-bottom: 0; }
+.field-row.single { grid-template-columns: 1fr; }
+@media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label {
+  font-size: 0.78rem; font-weight: 700; color: var(--primary);
+  display: flex; align-items: center; gap: 4px;
+}
+.field label .req { color: var(--danger); }
+.field input, .field select, .field textarea {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 0.9rem;
+  padding: 12px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg2);
+  color: var(--text);
+  outline: none;
+  width: 100%;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  background: var(--bg3);
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--text3); }
+.field input.error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important; background: rgba(239,68,68,0.05) !important; }
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  padding-left: 36px;
+}
+.field textarea { min-height: 80px; resize: vertical; }
+.field-error { font-size: 0.72rem; color: var(--danger); margin-top: 2px; display: none; }
+
+/* Radio & Checkbox */
+.radio-group, .check-group {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px;
+}
+.radio-opt, .check-opt {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--text2);
+  user-select: none;
+}
+.radio-opt:hover, .check-opt:hover { border-color: var(--primary); }
+.radio-opt input, .check-opt input { display: none; }
+.radio-opt.selected { border-color: var(--primary); background: var(--primary-dim); color: var(--primary); }
+.check-opt.selected { border-color: var(--primary); background: var(--primary-dim); color: var(--primary); }
+.radio-opt .radio-label { pointer-events: none; }
+
+/* Other input */
+.other-wrap { display: none; margin-top: 8px; }
+.other-wrap.active { display: block; }
+
+/* Buttons */
+.btn-row {
+  display: flex; gap: 12px; margin-top: 8px;
+}
+.btn {
+  flex: 1;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.88rem; font-weight: 800;
+  padding: 12px 20px;
+  border: none; border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all var(--transition);
+}
+.btn-prev {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+.btn-prev:hover { background: var(--bg4); }
+.btn-next {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(15,118,110,0.25);
+}
+.btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(15,118,110,0.35); }
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.95rem; font-weight: 900;
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(15,118,110,0.25);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: all var(--transition);
+  margin-top: 6px;
+}
+.btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(15,118,110,0.35); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-new {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.85rem; font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+.btn-new:hover { transform: translateY(-2px); }
+
+/* Success */
+.success-screen { display:none; text-align:center; padding:60px 24px; }
+.success-screen.active { display:block; animation:fadeUp 0.5s ease; }
+.success-screen .check {
+  width: 72px; height: 72px;
+  background: var(--success-bg);
+  border: 3px solid var(--success);
+  border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 16px;
+  font-size: 32px;
+  color: var(--success);
+}
+.success-screen h2 { font-size:1.4rem; font-weight:900; margin-bottom:8px; color:#fff; }
+.success-screen p { color: var(--text2); font-size:0.9rem; line-height:1.8; }
+
+/* Footer */
+@keyframes logoReveal {
+  from { opacity: 0; transform: scale(0.92) translateY(24px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.footer {
+  text-align: center;
+  padding: 24px 16px 16px;
+  color: var(--text3);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+.footer strong { color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div class="premium-bar">
+  <span class="bar-icon">◈</span>
+  <span>فريق الميديا — صناع الحياة المنوفية</span>
+</div>
+<div class="geo-bg"></div>
+<div class="grain"></div>
+
+<div class="page">
+
+<div class="header">
+  <div class="logo-frame" style="position:relative;z-index:2;display:flex;justify-content:center;padding:10px;border:1px solid var(--border);border-radius:var(--radius-lg);background:rgba(14,22,40,0.6);backdrop-filter:blur(10px);margin-bottom:8px;animation:logoReveal 1.2s cubic-bezier(0.16,1,0.3,1) both;">
+    <img src="logo.jpg" alt="صناع الحياة" style="display:block;height:90px;width:auto;border-radius:12px;">
+  </div>
+  <div class="header-badge">📸 فريق الميديا | صناع الحياة المنوفية</div>
+  <h1>فريق <span class="hl">الميديا</span></h1>
+  <p>عايز تكون جزء من الفريق اللي بيوثق كل لحظة؟ مكانك هنا ❤️</p>
+  <div class="header-divider"></div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-steps" id="progressBar">
+    <div class="progress-step active" data-step="1" onclick="goToStep(1)">
+      <span class="num">1</span><span>البيانات</span>
+    </div>
+    <div class="progress-line" data-between="1-2"></div>
+    <div class="progress-step" data-step="2" onclick="goToStep(2)">
+      <span class="num">2</span><span>المجال</span>
+    </div>
+    <div class="progress-line" data-between="2-3"></div>
+    <div class="progress-step" data-step="3" onclick="goToStep(3)">
+      <span class="num">3</span><span>أسئلة</span>
+    </div>
+    <div class="progress-line" data-between="3-4"></div>
+    <div class="progress-step" data-step="4" onclick="goToStep(4)">
+      <span class="num">4</span><span>الرسالة</span>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <form id="mediaForm" novalidate>
+
+    <!-- STEP 1 -->
+    <div class="section active" data-step="1">
+      <div class="section-header">
+        <span class="icon">👤</span> البيانات الأساسية
+        <span class="badge">إلزامي</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row single">
+          <div class="field">
+            <label>الاسم كامل <span class="req">*</span></label>
+            <input type="text" id="full_name" placeholder="الاسم الثلاثي أو الرباعي" pattern="\S+\s+\S+\s+\S+(\s+\S+)*" required>
+            <span class="field-error">الاسم لا بد أن يكون ثلاثيًا على الأقل</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>السن <span class="req">*</span></label>
+            <input type="number" id="age" placeholder="السن" min="10" max="99" required>
+            <span class="field-error">يجب إدخال سن صحيح</span>
+          </div>
+          <div class="field">
+            <label>رقم الموبايل <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="01xxxxxxxxx" pattern="01[0-25][0-9]{8}" required>
+            <span class="field-error">11 رقم — يبدأ بـ 010 أو 011 أو 012 أو 015</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>المحافظة <span class="req">*</span></label>
+            <select id="governorate" required>
+              <option value="">— اختر المحافظة —</option>
+              <option value="القاهرة">القاهرة</option>
+              <option value="الجيزة">الجيزة</option>
+              <option value="الأسكندرية">الأسكندرية</option>
+              <option value="الدقهلية">الدقهلية</option>
+              <option value="الشرقية">الشرقية</option>
+              <option value="القليوبية">القليوبية</option>
+              <option value="الغربية">الغربية</option>
+              <option value="المنوفية">المنوفية</option>
+              <option value="كفر الشيخ">كفر الشيخ</option>
+              <option value="البحيرة">البحيرة</option>
+              <option value="دمياط">دمياط</option>
+              <option value="الإسماعيلية">الإسماعيلية</option>
+              <option value="السويس">السويس</option>
+              <option value="بورسعيد">بورسعيد</option>
+              <option value="مطروح">مطروح</option>
+              <option value="شمال سيناء">شمال سيناء</option>
+              <option value="جنوب سيناء">جنوب سيناء</option>
+              <option value="بني سويف">بني سويف</option>
+              <option value="الفيوم">الفيوم</option>
+              <option value="المنيا">المنيا</option>
+              <option value="أسيوط">أسيوط</option>
+              <option value="سوهاج">سوهاج</option>
+              <option value="قنا">قنا</option>
+              <option value="الأقصر">الأقصر</option>
+              <option value="أسوان">أسوان</option>
+              <option value="الوادي الجديد">الوادي الجديد</option>
+            </select>
+            <span class="field-error">اختر المحافظة</span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>الكلية / المدرسة / جهة العمل <span class="req">*</span></label>
+            <input type="text" id="occupation" placeholder="الكلية أو المدرسة أو جهة العمل" required>
+            <span class="field-error">أدخل الكلية أو المدرسة أو جهة العمل</span>
+          </div>
+        </div>
+        <div class="btn-row">
+          <div></div>
+          <button type="button" class="btn btn-next" onclick="nextStep(2)">التالي ←</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="section" data-step="2">
+      <div class="section-header">
+        <span class="icon">🎯</span> عايز تتطوع في إيه؟
+        <span class="badge">اختياري (اختار اللي تحبه)</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row single">
+          <div class="field">
+            <label>اختر المجالات اللي عايز تشتغل فيها <span class="req">*</span></label>
+            <div class="check-group" id="mediaFieldsGroup">
+              <label class="check-opt"><input type="checkbox" name="media_field" value="كتابة المحتوى (Content)"><span>✍️ كتابة المحتوى (Content)</span></label>
+              <label class="check-opt"><input type="checkbox" name="media_field" value="التصميم (Design)"><span>🎨 التصميم (Design)</span></label>
+              <label class="check-opt"><input type="checkbox" name="media_field" value="المونتاج (Video Editing)"><span>🎬 المونتاج (Video Editing)</span></label>
+            </div>
+            <span class="field-error" id="mediaFieldError" style="display:none">اختر مجالًا واحدًا على الأقل</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>هل لديك خبرة سابقة في المجال ده؟</label>
+            <div class="radio-group" id="experienceGroup">
+              <label class="radio-opt"><input type="radio" name="prev_experience" value="نعم"><span class="radio-label">نعم</span></label>
+              <label class="radio-opt"><input type="radio" name="prev_experience" value="لا"><span class="radio-label">لا</span></label>
+              <label class="radio-opt"><input type="radio" name="prev_experience" value="بتعلم"><span class="radio-label">بتعلم</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>شاركنا شغلك أو أعمالك السابقة (لو في)</label>
+            <textarea id="portfolio" rows="3" placeholder="لينك معرض أعمالك أو أمثلة لشغلك (اختياري)"></textarea>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-prev" onclick="prevStep(1)">→ السابق</button>
+          <button type="button" class="btn btn-next" onclick="nextStep(3)">التالي ←</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="section" data-step="3">
+      <div class="section-header">
+        <span class="icon">💬</span> أسئلة عامة
+        <span class="badge">إلزامي</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row single">
+          <div class="field">
+            <label>عرفنا بنفسك في كام سطر. <span class="req">*</span></label>
+            <textarea id="about_you" rows="4" placeholder="اكتب عن نفسك، شخصيتك، اهتماماتك..." required></textarea>
+            <span class="field-error">اكتب نبذة عن نفسك</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>ليه حابب تنضم لفريق الميديا؟ <span class="req">*</span></label>
+            <textarea id="why_join" rows="4" placeholder="إيه اللي جابك هنا؟" required></textarea>
+            <span class="field-error">اكتب سبب انضمامك</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>هل سبق واشتغلت أو تطوعت في أي فريق قبل كده؟ <span class="req">*</span></label>
+            <div class="radio-group" id="prevWorkGroup">
+              <label class="radio-opt"><input type="radio" name="prev_work" value="نعم" required><span class="radio-label">نعم</span></label>
+              <label class="radio-opt"><input type="radio" name="prev_work" value="لا"><span class="radio-label">لا</span></label>
+            </div>
+            <span class="field-error">اختر نعم أو لا</span>
+            <div class="other-wrap" id="prevWorkOtherWrap">
+              <textarea id="prev_work_details" rows="3" placeholder="لو نعم، احكيلنا عنه. إيه الفريق؟ كنت بتعمل إيه؟"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-prev" onclick="prevStep(2)">→ السابق</button>
+          <button type="button" class="btn btn-next" onclick="nextStep(4)">التالي ←</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="section" data-step="4">
+      <div class="section-header">
+        <span class="icon">🚀</span> التطور والاستعداد
+        <span class="badge">إلزامي</span>
+      </div>
+      <div class="section-body">
+        <div class="field-row single">
+          <div class="field">
+            <label>تقدر تخصص كام ساعة في الأسبوع للتطوع؟ <span class="req">*</span></label>
+            <input type="text" id="weekly_hours" placeholder="مثال: 10 ساعات" required>
+            <span class="field-error">حدد عدد الساعات</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>إيه أكتر حاجة بتحب تتعلمها أو تطورها خلال الفترة الجاية؟ <span class="req">*</span></label>
+            <textarea id="goal" rows="4" placeholder="مثال: عايز أتعلم تصوير فيديو، جرافيك ديزاين، كتابة سكريبت..." required></textarea>
+            <span class="field-error">اكتب المهارة اللي عايز تتعلمها</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field">
+            <label>أي إضافات أو تعليق؟</label>
+            <textarea id="notes" rows="3" placeholder="حابب تقول حاجة إضافية (اختياري)"></textarea>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-prev" onclick="prevStep(3)">→ السابق</button>
+          <button type="submit" class="btn btn-submit">
+            <span class="spinner" id="submitSpinner" style="display:none;width:18px;height:18px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0"></span>
+            <span id="submitText">🎉 تسجيل</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+  <div class="success-screen" id="successScreen">
+    <div class="check">✓</div>
+    <h2>🎉 تم تسجيلك بنجاح!</h2>
+    <p>هنشوفك قريب في فريق الميديا ❤️<br>هنتواصل معاك على رقم الموبايل اللي كتبته.</p>
+    <br>
+    <button class="btn-new" onclick="resetForm()">⟳ تسجيل جديد</button>
+  </div>
+
+  <div class="footer">
+    <strong>فريق الميديا</strong> — صناع الحياة المنوفية<br>
+    التحول الرقمي © 2026
+  </div>
+</div>
+
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzemNMrg0RSShqTJWICFbqXyTNmIsRATjxui7v57ke0R7htDyX3SntYvBma3C2uAC45/exec';
+let currentStep = 1;
+
+function goToStep(step) {
+  if (step > currentStep) {
+    for (let s = currentStep; s < step; s++) {
+      if (!validateStep(s)) { showStep(s); return; }
+    }
+  }
+  showStep(step);
+}
+
+function nextStep(step) {
+  if (!validateStep(currentStep)) return;
+  showStep(step);
+}
+
+function prevStep(step) { showStep(step); }
+
+function showStep(step) {
+  currentStep = step;
+  document.querySelectorAll('.section').forEach(c => c.classList.remove('active'));
+  const card = document.querySelector('.section[data-step="' + step + '"]');
+  if (card) card.classList.add('active');
+
+  document.querySelectorAll('.progress-step').forEach(s => {
+    const n = parseInt(s.dataset.step);
+    s.classList.remove('active', 'done');
+    if (n === step) s.classList.add('active');
+    else if (n < step) s.classList.add('done');
+  });
+  document.querySelectorAll('.progress-line').forEach(l => {
+    const [a] = l.dataset.between.split('-').map(Number);
+    l.classList.toggle('fill', step > a);
+  });
+  window.scrollTo({ top: 60, behavior: 'smooth' });
+}
+
+// Radio styling
+document.querySelectorAll('.radio-opt').forEach(opt => {
+  const radio = opt.querySelector('input[type="radio"]');
+  if (radio) {
+    radio.addEventListener('change', function() {
+      const group = opt.closest('.radio-group');
+      if (group) group.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
+      if (this.checked) opt.classList.add('selected');
+    });
+  }
+});
+
+// Checkbox styling
+document.querySelectorAll('.check-opt').forEach(opt => {
+  const cb = opt.querySelector('input[type="checkbox"]');
+  if (cb) {
+    cb.addEventListener('change', function() {
+      opt.classList.toggle('selected', this.checked);
+    });
+  }
+});
+
+// Show prev work details when "نعم" selected
+document.querySelectorAll('input[name="prev_work"]').forEach(r => {
+  r.addEventListener('change', function() {
+    document.getElementById('prevWorkOtherWrap').classList.toggle('active', this.value === 'نعم');
+    if (this.value === 'نعم') {
+      document.getElementById('prev_work_details').setAttribute('required', '');
+    } else {
+      document.getElementById('prev_work_details').removeAttribute('required');
+    }
+  });
+});
+
+function validateStep(step) {
+  const card = document.querySelector('.section[data-step="' + step + '"]');
+  if (!card) return true;
+  let valid = true;
+
+  // Step 2 special: validate checkboxes
+  if (step === 2) {
+    const checked = card.querySelectorAll('input[name="media_field"]:checked');
+    const errEl = document.getElementById('mediaFieldError');
+    if (checked.length === 0) {
+      errEl.style.display = 'block';
+      valid = false;
+    } else {
+      errEl.style.display = 'none';
+    }
+  }
+
+  // Check radios
+  card.querySelectorAll('.radio-group').forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if (!checked) {
+      group.style.border = '2px solid var(--danger)';
+      group.style.borderRadius = 'var(--radius-sm)';
+      group.style.padding = '4px';
+      valid = false;
+    } else {
+      group.style.border = 'none';
+      group.style.padding = '0';
+    }
+  });
+
+  // Check inputs/selects/textarea
+  card.querySelectorAll('[required]').forEach(el => {
+    if (el.type === 'radio') return;
+    if (!el.value || el.value.trim() === '') {
+      el.classList.add('error'); valid = false;
+    } else {
+      el.classList.remove('error');
+      if (el.pattern) {
+        const regex = new RegExp('^(?:' + el.pattern.replace(/^\^|\$$/g, '') + ')$');
+        if (!regex.test(el.value.trim())) { el.classList.add('error'); valid = false; }
+        else { el.classList.remove('error'); }
+      }
+      if (el.min || el.max) {
+        const num = parseFloat(el.value);
+        if (el.min && num < parseFloat(el.min)) { el.classList.add('error'); valid = false; }
+        if (el.max && num > parseFloat(el.max)) { el.classList.add('error'); valid = false; }
+      }
+    }
+  });
+
+  return valid;
+}
+
+document.addEventListener('input', function(e) {
+  if (e.target.classList) e.target.classList.remove('error');
+});
+
+document.getElementById('mediaForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  if (!validateStep(4)) return;
+
+  if (SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    alert('⚠️ لم يتم ربط الاستمارة بعد. استخدم كود Google Apps Script المرفق.');
+    return;
+  }
+
+  const mediaFields = Array.from(document.querySelectorAll('input[name="media_field"]:checked'))
+    .map(cb => cb.value).join('، ');
+
+  const data = {
+    full_name: document.getElementById('full_name').value,
+    age: document.getElementById('age').value,
+    phone: document.getElementById('phone').value,
+    governorate: document.getElementById('governorate').value,
+
+    occupation: document.getElementById('occupation').value || '',
+    media_field: mediaFields,
+    prev_experience: document.querySelector('input[name="prev_experience"]:checked')?.value || '',
+    portfolio: document.getElementById('portfolio').value || '',
+    about_you: document.getElementById('about_you').value,
+    why_join: document.getElementById('why_join').value,
+    prev_work: document.querySelector('input[name="prev_work"]:checked')?.value || '',
+    prev_work_details: document.getElementById('prev_work_details').value || '',
+    weekly_hours: document.getElementById('weekly_hours').value,
+    goal: document.getElementById('goal').value,
+    notes: document.getElementById('notes').value || '',
+    timestamp: new Date().toISOString()
+  };
+
+  const btn = this.querySelector('button[type="submit"]');
+  const spinner = document.getElementById('submitSpinner');
+  const btnText = document.getElementById('submitText');
+  btn.disabled = true;
+  spinner.style.display = 'inline-block';
+  btnText.textContent = 'جاري الإرسال...';
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    showSuccess();
+  } catch (err) {
+    showSuccess();
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnText.textContent = '🎉 تسجيل';
+  }
+});
+
+function showSuccess() {
+  document.getElementById('mediaForm').style.display = 'none';
+  document.getElementById('progressBar').style.display = 'none';
+  document.getElementById('successScreen').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetForm() {
+  document.getElementById('mediaForm').reset();
+  document.getElementById('mediaForm').style.display = 'block';
+  document.getElementById('progressBar').style.display = 'flex';
+  document.getElementById('successScreen').classList.remove('active');
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+  document.querySelectorAll('.radio-opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.check-opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.other-wrap').forEach(i => i.classList.remove('active'));
+  document.querySelectorAll('.radio-group').forEach(g => { g.style.border = 'none'; g.style.padding = '0'; });
+  document.getElementById('mediaFieldError').style.display = 'none';
+  document.getElementById('prev_work_details').removeAttribute('required');
+  showStep(1);
+}
+</script>
+</body>
+</html>
